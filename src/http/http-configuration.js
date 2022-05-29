@@ -19,10 +19,10 @@ httpConfig.interceptors.request.use((req) => {
 });
 
 httpConfig.interceptors.response.use(
-  function (successRes) {
+  (successRes) => {
     return successRes;
   },
-  function (error) {
+  (error) => {
     if (error.response.status === 401) {
       console.log("forbidden");
     }

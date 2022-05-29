@@ -1,13 +1,13 @@
-import { useOnDraw } from "../hooks";
+import { useOnDraw } from "../../hooks";
 
 const Canvas = ({ width, height, strokeColor, strokeWidth, brushType }) => {
   const { setCanvasRef, onCanvasMouseDown } = useOnDraw(onDraw);
 
-  function onDraw(ctx, point, prevPoint) {
+  const onDraw = (ctx, point, prevPoint) => {
     drawLine(prevPoint, point, ctx, strokeColor, strokeWidth, brushType);
-  }
+  };
 
-  function drawLine(start, end, ctx, color, width, lineCap) {
+  const drawLine = (start, end, ctx, color, width, lineCap) => {
     start = start ?? end;
     ctx.beginPath();
     if (lineCap === "dotted") ctx.setLineDash([5, 15]);
@@ -21,7 +21,7 @@ const Canvas = ({ width, height, strokeColor, strokeWidth, brushType }) => {
     ctx.beginPath();
     ctx.arc(start.x, start.y, 2, 0, 2 * Math.PI);
     ctx.fill();
-  }
+  };
 
   return (
     <canvas

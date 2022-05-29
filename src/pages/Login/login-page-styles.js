@@ -1,0 +1,30 @@
+export default {
+  container: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    border: "5px solid black",
+    padding: "10px",
+    height: "400px",
+    width: "25%",
+    backgroundColor: "#eee",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+  },
+  title: {
+    color: "black",
+    fontFamily: "cursive",
+    fontSize: "46px",
+  },
+  loginButton: {
+    margin: "20px",
+    zIndex: 9000,
+    fontSize: 16,
+    backgroundColor: "green",
+    color: "white",
+    textTransform: "none",
+    border: "2px solid grey",
+  },
+};

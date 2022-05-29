@@ -1,21 +1,20 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useReducer, useState } from "react";
-import Create from "./pages/Create";
+import { useReducer } from "react";
+import Create from "./pages/Create/Create";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Gallery from "./pages/Gallery";
+import Login from "./pages/Login/Login";
+import Gallery from "./pages/Gallery/Gallery";
 
 const initialState = { currentDrawing: {} };
 
-function reducer(state = {}, action) {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case "select-drawing":
       return { currentDrawing: action.payload };
     default:
       return null;
   }
-}
+};
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

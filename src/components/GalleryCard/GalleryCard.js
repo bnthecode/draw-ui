@@ -5,16 +5,15 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import galleryCardStyles from "./gallery-card-styles";
 
-export default function ActionAreaCard({ image, dispatch }) {
+const GalleryCard = ({ image, dispatch }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     dispatch({ type: "select-drawing", payload: image });
     navigate(`/create/${image._id}`);
   };
-
+  const { description, handle } = galleryCardStyles;
   return (
     <Card elevation={12} onClick={handleClick}>
       <CardActionArea>
@@ -34,11 +33,8 @@ export default function ActionAreaCard({ image, dispatch }) {
             {image.title || "no title"}
           </Typography>
           <Typography
-            className="scrollbar"
             style={{
-              fontFamily: "cursive",
-              height: 200,
-              overflowY: "scroll",
+              ...description,
             }}
             variant="body2"
             color="text.secondary"
@@ -48,11 +44,7 @@ export default function ActionAreaCard({ image, dispatch }) {
 
           <Typography
             style={{
-              fontFamily: "cursive",
-              fontSize: 18,
-              fontWeight: 700,
-              textAlign: "center",
-              marginTop: "12px",
+              ...handle,
             }}
             color="text.secondary"
           >
@@ -62,31 +54,6 @@ export default function ActionAreaCard({ image, dispatch }) {
       </CardActionArea>
     </Card>
   );
-}
+};
 
-// export default function ActionAreaCard({ image, setSelected }) {
-//     return (
-//       <Card
-//         onClick={() => {
-//           setSelected(image);
-//         }}
-//       >
-//         <CardActionArea>
-//           <CardMedia
-//             component="img"
-//             height={260}
-//             image={image.imgUrl}
-//             alt="green iguana"
-//           />
-//           <CardContent>
-//             <Typography gutterBottom variant="h5" component="div">
-//               {image.title || "no title"}
-//             </Typography>
-//             <Typography variant="body2" color="text.secondary">
-//               {image.description || "no descrtiptiop"}
-//             </Typography>
-//           </CardContent>
-//         </CardActionArea>
-//       </Card>
-//     );
-//   }
+export default GalleryCard;

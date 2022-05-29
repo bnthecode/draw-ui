@@ -4,19 +4,16 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import CheckIcon from "@mui/icons-material/Check";
-import ToggleButton from "@mui/material/ToggleButton";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
-export default function SaveDialog({
+import saveDialogStyles from "./save-dialog-styles";
+const SaveDialog = ({
   notificationOpen,
   setNotificationOpen,
   title,
   onSave,
-  children,
-}) {
+}) => {
   const [formData, setFormData] = React.useState({
     isPublic: true,
   });
@@ -32,10 +29,10 @@ export default function SaveDialog({
   const handleSave = () => {
     onSave(formData);
   };
-
+  const { saveButton } = saveDialogStyles;
   return (
     <div>
-      <Dialog open={notificationOpen} onClose={setNotificationOpen}>
+      <Dialog open={Boolean(notificationOpen)} onClose={setNotificationOpen}>
         <DialogTitle style={{ fontFamily: "cursive" }}>{title}</DialogTitle>
         <DialogContent>
           <TextField
@@ -49,7 +46,6 @@ export default function SaveDialog({
             sx={{ width: 500, marginTop: 4 }}
             multiline
             rows={4}
-            maxRows={4}
             onChange={(e) => handleForm(e, "description")}
             placeholder="description"
           />
@@ -65,13 +61,7 @@ export default function SaveDialog({
         <DialogActions>
           <Button
             style={{
-              fontSize: 16,
-
-              backgroundColor: "green",
-
-              color: "white",
-              textTransform: "none",
-              border: "2px solid grey",
+              ...saveButton,
             }}
             onClick={handleSave}
           >
@@ -81,4 +71,6 @@ export default function SaveDialog({
       </Dialog>
     </div>
   );
-}
+};
+
+export default SaveDialog;

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
+import { checkRetinaDisplay } from "./utilities";
 
-export function useOnDraw(onDraw) {
+export const useOnDraw = (onDraw) => {
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
   const prevPointRef = useRef(null);
@@ -8,16 +9,16 @@ export function useOnDraw(onDraw) {
   const mouseMoveListenerRef = useRef(null);
   const mouseUpListenerRef = useRef(null);
 
-  function setCanvasRef(ref) {
+  const setCanvasRef = (ref) => {
     canvasRef.current = ref;
-  }
+  };
 
-  function onCanvasMouseDown() {
+  const onCanvasMouseDown = () => {
     isDrawingRef.current = true;
-  }
+  };
 
   useEffect(() => {
-    function computePointInCanvas(clientX, clientY) {
+    const computePointInCanvas = (clientX, clientY) => {
       if (canvasRef.current) {
         const boundingRect = canvasRef.current.getBoundingClientRect();
         return {
@@ -27,12 +28,14 @@ export function useOnDraw(onDraw) {
       } else {
         return null;
       }
-    }
-    function initMouseMoveListener() {
+    };
+    const initMouseMoveListener = () => {
       const mouseMoveListener = (e) => {
         if (isDrawingRef.current && canvasRef.current) {
           const point = computePointInCanvas(e.clientX, e.clientY);
-          const ctx = canvasRef.current.getContext("2d");
+          const ctx = checkRetinaDisplay()
+            ? canvasRef.current.getContext("2d").scale(2, 2)
+            : canvasRef.current.getContext("2d");
           if (onDraw) onDraw(ctx, point, prevPointRef.current);
           prevPointRef.current = point;
         }
@@ -40,9 +43,9 @@ export function useOnDraw(onDraw) {
       mouseMoveListenerRef.current = mouseMoveListener;
       window.addEventListener("mousemove", mouseMoveListener);
       window.addEventListener("touchmove", mouseMoveListener);
-    }
+    };
 
-    function initMouseUpListener() {
+    const initMouseUpListener = () => {
       const listener = () => {
         isDrawingRef.current = false;
         prevPointRef.current = null;
@@ -50,9 +53,9 @@ export function useOnDraw(onDraw) {
       mouseUpListenerRef.current = listener;
       window.addEventListener("mouseup", listener);
       window.addEventListener("touchend", listener);
-    }
+    };
 
-    function cleanup() {
+    const cleanup = () => {
       if (mouseMoveListenerRef.current) {
         window.removeEventListener("mousemove", mouseMoveListenerRef.current);
         window.removeEventListener("touchmove", mouseMoveListenerRef.current);
@@ -61,7 +64,7 @@ export function useOnDraw(onDraw) {
         window.removeEventListener("mouseup", mouseUpListenerRef.current);
         window.removeEventListener("touchend", mouseUpListenerRef.current);
       }
-    }
+    };
 
     initMouseMoveListener();
     initMouseUpListener();
@@ -72,4 +75,4 @@ export function useOnDraw(onDraw) {
     setCanvasRef,
     onCanvasMouseDown,
   };
-}
+};
