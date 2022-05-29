@@ -39,6 +39,7 @@ export function useOnDraw(onDraw) {
       };
       mouseMoveListenerRef.current = mouseMoveListener;
       window.addEventListener("mousemove", mouseMoveListener);
+      window.addEventListener("touchmove", mouseMoveListener);
     }
 
     function initMouseUpListener() {
@@ -48,14 +49,17 @@ export function useOnDraw(onDraw) {
       };
       mouseUpListenerRef.current = listener;
       window.addEventListener("mouseup", listener);
+      window.addEventListener("touchend", listener);
     }
 
     function cleanup() {
       if (mouseMoveListenerRef.current) {
         window.removeEventListener("mousemove", mouseMoveListenerRef.current);
+        window.removeEventListener("touchmove", mouseMoveListenerRef.current);
       }
       if (mouseUpListenerRef.current) {
         window.removeEventListener("mouseup", mouseUpListenerRef.current);
+        window.removeEventListener("touchend", mouseUpListenerRef.current);
       }
     }
 

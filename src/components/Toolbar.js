@@ -24,7 +24,7 @@ const Toolbar = ({ handleToolbarChange }) => {
           transition: "height 1s",
           borderRadius: 8,
           height: 60,
-          width: 1000,
+          width: "50%",
           margin: 6,
         }}
         elevation={24}

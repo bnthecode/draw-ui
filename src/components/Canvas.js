@@ -8,7 +8,6 @@ const Canvas = ({ width, height, strokeColor, strokeWidth, brushType }) => {
   }
 
   function drawLine(start, end, ctx, color, width, lineCap) {
-    console.log(lineCap);
     start = start ?? end;
     ctx.beginPath();
     if (lineCap === "dotted") ctx.setLineDash([5, 15]);
@@ -29,6 +28,7 @@ const Canvas = ({ width, height, strokeColor, strokeWidth, brushType }) => {
       id="drawing-canvas"
       width={width}
       height={height}
+      onTouchStart={onCanvasMouseDown}
       onMouseDown={onCanvasMouseDown}
       style={canvasStyle}
       ref={setCanvasRef}

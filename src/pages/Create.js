@@ -72,6 +72,7 @@ function Draw3({ imageUrl }) {
         height: window.innerHeight,
         width: window.innerWidth,
         backgroundColor: "grey",
+        overflow: "hidden",
       }}
     >
       <FontAwesomeIcon
