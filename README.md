@@ -6,16 +6,14 @@ Draw UI is an application providing people the ability to create drawings & shar
 
 Use the package manager [npm](https://www.npmjs.com/) to install all dependies.
 
+
+## Installation and start-up
 ```bash
 cd draw-ui
 npm install
-```
-
-## Usage
-
-```bash
 npm start
 ```
+
 
 ## Repository overview
 
