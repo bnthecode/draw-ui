@@ -57,10 +57,10 @@ theming through material ui is not complete, did not feel the need to use it jus
 some refactoring due to unknown outcomes for html canvas<br></br>
 css updates, replicated code<br></br>
 reuse of components not very suitable / also some small replications that should be addressed.<br></br>
-can't currently edit title/description as of 5/31/22 but editing would be a seamless addition.<br></br>
+<bold>EDIT--- DONE 5/31/22 </bold>  can't currently edit title/description as of 5/31/22 but editing would be a seamless addition.<br></br>
 password hashing is not implemented
 
 -- bugs <br></br>
-ability to edit an existing drawing works, but for some reason state updates cause the image to go back to original.<br></br>
+<bold>EDIT--- DONE 5/31/22 </bold> ability to edit an existing drawing works, but for some reason state updates cause the image to go back to original.<br></br>
 only way to clear eraser is by selecting a new color, not desired<br></br>
 console errors, only a couple that randomly appear
