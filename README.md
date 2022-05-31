@@ -6,14 +6,13 @@ Draw UI is an application providing people the ability to create drawings & shar
 
 Use the package manager [npm](https://www.npmjs.com/) to install all dependies.
 
-
 ## Installation and start-up
+
 ```bash
 cd draw-ui
 npm install
 npm start
 ```
-
 
 ## Repository overview
 
@@ -64,3 +63,4 @@ can't currently edit title/description as of 5/31/22 but editing would be a seam
 -- bugs <br></br>
 ability to edit an existing drawing works, but for some reason state updates cause the image to go back to original.<br></br>
 only way to clear eraser is by selecting a new color, not desired<br></br>
+console errors, only a couple that randomly appear
