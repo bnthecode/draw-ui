@@ -82,7 +82,7 @@ const Toolbar = ({ handleToolbarChange, toolbarOpen, canvasProperties }) => {
           <Slider
             style={{ ...verticalSlider }}
             onChange={({ target: { value } }) =>
-              handleToolbarProperties(value * 3, "strokeWidth")
+              handleToolbarProperties(value, "strokeWidth")
             }
             min={1}
             orientation="vertical"

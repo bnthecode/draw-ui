@@ -8,10 +8,20 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import saveDialogStyles from "./save-dialog-styles";
-const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
+
+const SaveDialog = ({ dialogOpen, setDialogOpen, onSave, image }) => {
   const [formData, setFormData] = React.useState({
     isPublic: true,
   });
+  React.useEffect(() => {
+    if (image && image.imgUrl) {
+      setFormData({
+        title: image.title,
+        description: image.description,
+        isPublic: image.isPublic,
+      });
+    }
+  }, [image]);
 
   const handleForm = ({ target: { value, checked, id } }, key) => {
     const data = id === "checkbox" ? checked : value;
@@ -27,7 +37,7 @@ const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
   const { saveButton } = saveDialogStyles;
   return (
     <div>
-      <Dialog open={Boolean(notificationOpen)} onClose={setNotificationOpen}>
+      <Dialog open={Boolean(dialogOpen)} onClose={setDialogOpen}>
         <DialogTitle style={{ fontFamily: "cursive" }}>
           save your masterpiece
         </DialogTitle>
@@ -37,6 +47,7 @@ const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
             sx={{ width: 500, marginTop: 4 }}
             onChange={(e) => handleForm(e, "title")}
             placeholder="title"
+            value={formData.title}
           />
           <TextField
             id="description"
@@ -45,6 +56,7 @@ const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
             rows={4}
             onChange={(e) => handleForm(e, "description")}
             placeholder="description"
+            value={formData.description}
           />
           <Typography style={{ fontFamily: "cursive", marginTop: 24 }}>
             add my drawing to the public gallery{" "}
@@ -52,6 +64,7 @@ const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
               id="checkbox"
               onChange={(e) => handleForm(e, "isPublic")}
               defaultChecked
+              value={formData.isPublic}
             />
           </Typography>
         </DialogContent>

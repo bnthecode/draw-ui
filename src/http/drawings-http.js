@@ -8,6 +8,11 @@ const drawingHttp = {
     return data;
   },
 
+  editDrawing: async (id, drawing) => {
+    const { data } = await http.put(`/drawings/${id}`, { drawing });
+    return data;
+  },
+
   getDrawing: async (id) => {
     const { data } = await http.get(`/drawings/${id}`);
     return data;

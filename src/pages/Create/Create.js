@@ -26,7 +26,7 @@ const Create = () => {
       }
     };
     fetchDrawing();
-  });
+  }, []);
 
   const [canvasProperties, setCanvasProperties] = useState({
     strokeWidth: 5,
@@ -35,13 +35,13 @@ const Create = () => {
     height: window.innerHeight,
     width: window.innerWidth,
   });
-  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [toolbarOpen, setToolbarOpen] = useState(false);
   const [image, setImage] = useState({});
   const [elapsedTime, setElapsedTime] = useState(moment());
 
   const navigate = useNavigate();
-
+  const isEditing = image && image.imgUrl;
   const handleToolbarChange = (value, key) => {
     setCanvasProperties({
       ...canvasProperties,
@@ -52,19 +52,29 @@ const Create = () => {
     setToolbarOpen(!toolbarOpen);
   };
 
+  const handleEdit = async (body) => {
+    await drawingsHttp.editDrawing(image._id, body);
+    setDialogOpen(false);
+  };
+
   const saveChanges = async ({ title, description, isPublic }) => {
     // we are currently creating a new image every time, so we dont need to add elapsed time.
+
     const canvas = document.getElementById("drawing-canvas");
     var imgUrl = canvas.toDataURL();
+    const totalTime = Math.abs(elapsedTime.diff(moment(), "minutes"));
     const body = {
       title,
       description,
       imgUrl,
       isPublic,
-      elapsedTime: elapsedTime.diff(moment(), "minutes"),
+      elapsedTime: isEditing ? totalTime + image.elapsedTime : totalTime,
     };
+    if (isEditing) {
+      return handleEdit(body);
+    }
     await drawingsHttp.createDrawing(body);
-    setNotificationOpen(false);
+    setDialogOpen(false);
   };
 
   const clearCanvas = () => {
@@ -100,7 +110,7 @@ const Create = () => {
       <Button
         id="save-drawing-button"
         style={{ ...button, top: 20 }}
-        onClick={() => setNotificationOpen(true)}
+        onClick={() => setDialogOpen(true)}
       >
         save
       </Button>
@@ -141,8 +151,9 @@ const Create = () => {
       />
 
       <SaveDialog
-        notificationOpen={notificationOpen}
-        setNotificationOpen={setNotificationOpen}
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+        image={image}
         onSave={saveChanges}
       />
     </div>
