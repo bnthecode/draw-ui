@@ -31,7 +31,7 @@ folder structure
 ## Helpful hints
 
 ```javascript
-config.js - holds global configurations for application
+config.js - holds global configurations for application<br></br>
 http-configurations.js - holds useful configuration for methods http / api
 ```
 
