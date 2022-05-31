@@ -14,7 +14,7 @@ const DeleteDialog = ({ dialogOpen, setDialogOpen, imageTitle, onDelete }) => {
         <DialogContent style={{ width: 400, height: 100 }}>
           <Typography style={{ fontFamily: "cursive", marginTop: 24 }}>
             are you sure you want to delete
-            <Typography style={{ fontWeight: 800, fontWeight: 800, margin: 8 }}>
+            <Typography style={{ fontWeight: 800, margin: 8 }}>
               "{imageTitle}" ?
             </Typography>
           </Typography>

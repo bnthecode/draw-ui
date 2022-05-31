@@ -1,4 +1,4 @@
-export default {
+const saveDialogStyles = {
   saveButton: {
     fontSize: 16,
     backgroundColor: "green",
@@ -7,3 +7,5 @@ export default {
     border: "2px solid grey",
   },
 };
+
+export default saveDialogStyles;

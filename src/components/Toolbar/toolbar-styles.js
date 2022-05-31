@@ -1,4 +1,4 @@
-export default {
+const toolbarStyles = {
   paper: {
     height: "120px",
     width: "60px",
@@ -59,3 +59,5 @@ export default {
     fontSize: 24,
   },
 };
+
+export default toolbarStyles;

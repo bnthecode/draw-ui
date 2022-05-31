@@ -7,7 +7,7 @@ import PublicGallery from "../../containers/PublicGallery/PublicGallery";
 import galleryPageStyles from "./gallery-page-styles";
 import { Button, MenuItem, Select, Typography } from "@mui/material";
 
-const Gallery = ({ dispatch, username }) => {
+const Gallery = ({ dispatch }) => {
   const navigate = useNavigate();
   const deafultGallery = window.location.href.split("/")[4] || "public";
   const user = JSON.parse(localStorage.getItem("user"));
@@ -46,6 +46,9 @@ const Gallery = ({ dispatch, username }) => {
 
   useEffect(() => {
     fetchArtwork();
+    // dependency issue, no causes need to create new function.
+    // will work to remove later
+    // eslint-disable-next-line
   }, [galleryType]);
 
   const { button, title, container, select } = galleryPageStyles;

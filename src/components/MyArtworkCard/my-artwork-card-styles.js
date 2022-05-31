@@ -1,4 +1,4 @@
-export default {
+const myArtworkCardStyles = {
   description: {
     fontFamily: "cursive",
     height: 120,
@@ -12,3 +12,4 @@ export default {
     marginTop: "12px",
   },
 };
+export default myArtworkCardStyles;

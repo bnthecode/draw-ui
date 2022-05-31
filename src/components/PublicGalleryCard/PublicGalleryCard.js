@@ -3,19 +3,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import galleryCardStyles from "./public-gallery-card-styles";
 
-const GalleryCard = ({ image, dispatch }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    // dispatch({ type: "select-drawing", payload: image });
-    // navigate(`/create/${image._id}`);
-  };
+const GalleryCard = ({ image }) => {
   const { description, handle } = galleryCardStyles;
   return (
-    <Card elevation={12} onClick={handleClick}>
+    <Card elevation={12}>
       <CardMedia
         style={{ maxHeight: 200 }}
         component="img"

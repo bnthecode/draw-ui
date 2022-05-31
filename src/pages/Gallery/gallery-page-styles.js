@@ -1,4 +1,4 @@
-export default {
+const galleryPageStyles = {
   button: {
     zIndex: 1000,
     fontSize: 16,
@@ -35,3 +35,5 @@ export default {
     textAlign: "center",
   },
 };
+
+export default galleryPageStyles;

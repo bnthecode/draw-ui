@@ -8,12 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import saveDialogStyles from "./save-dialog-styles";
-const SaveDialog = ({
-  notificationOpen,
-  setNotificationOpen,
-  title,
-  onSave,
-}) => {
+const SaveDialog = ({ notificationOpen, setNotificationOpen, onSave }) => {
   const [formData, setFormData] = React.useState({
     isPublic: true,
   });
@@ -33,7 +28,9 @@ const SaveDialog = ({
   return (
     <div>
       <Dialog open={Boolean(notificationOpen)} onClose={setNotificationOpen}>
-        <DialogTitle style={{ fontFamily: "cursive" }}>{title}</DialogTitle>
+        <DialogTitle style={{ fontFamily: "cursive" }}>
+          save your masterpiece
+        </DialogTitle>
         <DialogContent>
           <TextField
             id="title"

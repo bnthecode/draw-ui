@@ -21,7 +21,7 @@ const MyArtworkCard = ({ image, dispatch }) => {
           style={{ maxHeight: 200 }}
           component="img"
           image={image.imgUrl}
-          alt="green iguana"
+          alt={image.title || "no title"}
         />
         <CardContent>
           <Typography
@@ -37,7 +37,6 @@ const MyArtworkCard = ({ image, dispatch }) => {
               ...description,
             }}
             variant="body2"
-            color="text.secondary"
           >
             {image.description || "no descrtiption"}
           </Typography>
@@ -46,7 +45,6 @@ const MyArtworkCard = ({ image, dispatch }) => {
             style={{
               ...handle,
             }}
-            color="text.secondary"
           ></Typography>
         </CardContent>
       </CardActionArea>

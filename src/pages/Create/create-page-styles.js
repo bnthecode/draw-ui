@@ -1,4 +1,4 @@
-export default {
+const createPageStyles = {
   container: {
     height: window.innerHeight,
     width: window.innerWidth,
@@ -33,3 +33,5 @@ export default {
     alignItems: "center",
   },
 };
+
+export default createPageStyles;

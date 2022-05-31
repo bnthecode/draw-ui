@@ -1,12 +1,11 @@
 import { grey } from "@mui/material/colors";
 
-export default {
+const loginPageStyles = {
   container: {
     position: "absolute",
     left: "50%",
     top: "50%",
     transform: "translate(-50%, -50%)",
-    // border: "5px solid black",
     padding: "10px",
     height: "400px",
     width: "25%",
@@ -36,3 +35,5 @@ export default {
     color: "white",
   },
 };
+
+export default loginPageStyles;

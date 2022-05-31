@@ -1,4 +1,4 @@
-export default {
+const galleryLoaderStyles = {
   container: {
     position: "absolute",
     width: window.innerWidth,
@@ -12,3 +12,5 @@ export default {
     fontSize: 100,
   },
 };
+
+export default galleryLoaderStyles;

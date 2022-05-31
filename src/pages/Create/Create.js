@@ -69,11 +69,13 @@ const Create = ({ imageUrl }) => {
   const { container, backButton, button, buttonIcon } = createPageStyles;
   return (
     <div
+      id="drawing-container"
       style={{
         ...container,
       }}
     >
       <FontAwesomeIcon
+        id="navigate-back-button"
         onClick={() => navigate(-1)}
         style={{
           ...backButton,
@@ -89,6 +91,7 @@ const Create = ({ imageUrl }) => {
         imageUrl={imageUrl}
       />
       <Button
+        id="save-drawing-button"
         style={{ ...button, top: 20 }}
         onClick={() => setNotificationOpen(true)}
       >
@@ -96,6 +99,7 @@ const Create = ({ imageUrl }) => {
       </Button>
 
       <Button
+        id="clear-canvas-button"
         onClick={clearCanvas}
         style={{
           ...button,
@@ -106,6 +110,7 @@ const Create = ({ imageUrl }) => {
       </Button>
 
       <Button
+        id="toolbar-button"
         onClick={handleToolbarToggle}
         style={{
           ...button,
@@ -113,6 +118,7 @@ const Create = ({ imageUrl }) => {
         }}
       >
         <FontAwesomeIcon
+          id="toolbar-button-icon"
           style={{
             ...buttonIcon,
           }}
@@ -128,7 +134,6 @@ const Create = ({ imageUrl }) => {
       />
 
       <SaveDialog
-        title="save your masterpiece"
         notificationOpen={notificationOpen}
         setNotificationOpen={setNotificationOpen}
         onSave={saveChanges}

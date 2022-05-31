@@ -1,4 +1,4 @@
-export default {
+const publicGalleryStyles = {
   description: {
     fontFamily: "cursive",
     height: 120,
@@ -12,3 +12,5 @@ export default {
     marginTop: "12px",
   },
 };
+
+export default publicGalleryStyles;

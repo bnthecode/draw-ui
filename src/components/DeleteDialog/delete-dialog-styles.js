@@ -1,8 +1,6 @@
-export default {
+const deleteDialogStyles = {
   button: {
     fontSize: 16,
-    textTransform: "none",
-    border: "2px solid grey",
     textTransform: "none",
     border: "2px solid grey",
     fontFamily: "cursive",
@@ -16,3 +14,5 @@ export default {
     backgroundColor: "white",
   },
 };
+
+export default deleteDialogStyles;
