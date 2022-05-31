@@ -11,6 +11,7 @@ export default {
     top: 20,
     left: 20,
     color: "grey",
+    cursor: "pointer",
   },
   button: {
     width: 80,
@@ -23,6 +24,7 @@ export default {
     fontWeight: 700,
     height: 40,
     backgroundColor: "grey",
+    fontFamily: "cursive",
   },
   buttonIcon: {
     color: "inherit",

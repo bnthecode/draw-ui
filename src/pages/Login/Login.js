@@ -13,10 +13,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (alignment === "sign-up") {
-      userHttp.createUser(userData);
+    let user = {};
+    try {
+      if (alignment === "sign-up") {
+        user = await userHttp.createUser(userData);
+      } else {
+        user = await userHttp.loginUser(userData);
+      }
+      navigate("/gallery");
+    } catch (error) {
+      alert(error);
     }
-    navigate("/gallery");
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const [userData, setUserData] = useState({});
@@ -28,10 +36,19 @@ const Login = () => {
     });
   };
   const [alignment, setAlignment] = useState("login");
+
   const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+    if (newAlignment) setAlignment(newAlignment);
   };
-  const { container, title, loginButton } = loginPageStyles;
+  const { container, title, loginButton, toggleBtn, activeStyle } =
+    loginPageStyles;
+
+  const getActiveStyles = (id) => {
+    console.log(id, alignment);
+    return id === alignment
+      ? { ...activeStyle, ...toggleBtn }
+      : { ...toggleBtn };
+  };
   return (
     <div style={{ width: "100vw", height: "100%" }}>
       <Paper
@@ -56,9 +73,9 @@ const Login = () => {
           label="password"
         />
         <Button
-          style={{ ...loginButton }}
           variant="contained"
           onClick={handleLogin}
+          style={{ ...loginButton }}
         >
           go
         </Button>
@@ -69,14 +86,11 @@ const Login = () => {
           exclusive
           onChange={handleChange}
         >
-          <ToggleButton
-            style={{ width: "50%", textTransform: "none" }}
-            value="login"
-          >
+          <ToggleButton style={{ ...getActiveStyles("login") }} value="login">
             login
           </ToggleButton>
           <ToggleButton
-            style={{ width: "50%", textTransform: "none" }}
+            style={{ ...getActiveStyles("sign-up") }}
             value="sign-up"
           >
             sign up

@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Gallery from "./pages/Gallery/Gallery";
 
-const initialState = { currentDrawing: {} };
+const initialState = { currentDrawing: {}, currentUser: {} };
 
-const reducer = (state = {}, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "select-drawing":
       return { currentDrawing: action.payload };
@@ -20,15 +20,13 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { currentDrawing: { imgUrl } = {} } = state;
+
   return (
     <div style={{ width: "100%" }}>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
-            path="/gallery"
-            element={<Gallery dispatch={dispatch} state={state} />}
-          />
+          <Route path="/gallery/*" element={<Gallery dispatch={dispatch} />} />
           <Route path="/create" element={<Create />} />
           <Route path="/create/:id" element={<Create imageUrl={imgUrl} />} />
         </Routes>

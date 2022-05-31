@@ -8,8 +8,23 @@ const drawingHttp = {
     return data;
   },
 
+  getDrawing: async (id) => {
+    const { data } = await http.get(`/drawings/${id}`);
+    return data;
+  },
+
   getDrawings: async () => {
     const { data } = await http.get(`/drawings`);
+    return data;
+  },
+
+  getUserDrawings: async () => {
+    const { data } = await http.get(`/drawings/me`);
+    return data;
+  },
+
+  deleteDrawing: async (id) => {
+    const { data } = await http.delete(`/drawings/${id}`);
     return data;
   },
 };

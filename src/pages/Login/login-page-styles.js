@@ -1,14 +1,16 @@
+import { grey } from "@mui/material/colors";
+
 export default {
   container: {
     position: "absolute",
     left: "50%",
     top: "50%",
     transform: "translate(-50%, -50%)",
-    border: "5px solid black",
+    // border: "5px solid black",
     padding: "10px",
     height: "400px",
     width: "25%",
-    backgroundColor: "#eee",
+    backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
@@ -22,9 +24,15 @@ export default {
     margin: "20px",
     zIndex: 9000,
     fontSize: 16,
-    backgroundColor: "green",
     color: "white",
     textTransform: "none",
-    border: "2px solid grey",
+  },
+  toggleBtn: {
+    width: "50%",
+    textTransform: "none",
+  },
+  activeStyle: {
+    backgroundColor: grey[700],
+    color: "white",
   },
 };

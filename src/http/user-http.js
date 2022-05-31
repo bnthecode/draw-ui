@@ -9,7 +9,7 @@ const userHttp = {
   },
 
   loginUser: async (user) => {
-    const { data } = await http.put(`/users/login`, { user });
+    const { data } = await http.put(`/users`, { user });
     return data;
   },
 };

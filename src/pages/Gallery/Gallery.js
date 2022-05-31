@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import drawingHttp from "../../http/drawings-http";
-import GalleryContent from "../../containers/GalleryContent/GalleryContent";
 import GalleryLoader from "../../components/GalleryLoader/GalleryLoader";
+import MyArtwork from "../../containers/MyArtwork/MyArtwork";
+import PublicGallery from "../../containers/PublicGallery/PublicGallery";
+import galleryPageStyles from "./gallery-page-styles";
+import { Button, MenuItem, Select, Typography } from "@mui/material";
 
-const Gallery = ({ dispatch }) => {
+const Gallery = ({ dispatch, username }) => {
   const navigate = useNavigate();
+  const deafultGallery = window.location.href.split("/")[4] || "public";
+  const user = JSON.parse(localStorage.getItem("user"));
   const [gallery, setGallery] = useState([]);
   const [loadingContent, setLoadingContent] = useState(true);
+  const [galleryType, setGalleryType] = useState(deafultGallery);
+
+  const getEndpoint = () => {
+    const { getDrawings, getUserDrawings } = drawingHttp;
+    return galleryType === "my-artwork" ? getUserDrawings : getDrawings;
+  };
 
   const fetchArtwork = async () => {
     try {
-      const data = await drawingHttp.getDrawings();
+      const method = getEndpoint();
+      const data = await method();
       setGallery(data);
     } catch (error) {
       alert(`error fetching gallery items ${error.message}`);
     } finally {
       setLoadingContent(false);
+      navigate(`/gallery/${galleryType}`);
     }
   };
 
@@ -24,18 +37,78 @@ const Gallery = ({ dispatch }) => {
     navigate("/create");
   };
 
+  const handleGalleryChange = ({ target: { value } }) => {
+    setGalleryType(value);
+  };
+
+  const determineTitle = () =>
+    galleryType === "public" ? "Gallery" : "My Art";
+
   useEffect(() => {
     fetchArtwork();
-  }, []);
+  }, [galleryType]);
 
+  const { button, title, container, select } = galleryPageStyles;
   return loadingContent ? (
     <GalleryLoader />
   ) : (
-    <GalleryContent
-      handleNavigation={handleNavigation}
-      gallery={gallery}
-      dispatch={dispatch}
-    />
+    <div style={{ ...container }}>
+      <Typography
+        style={{
+          ...title,
+        }}
+      >
+        {" "}
+        {determineTitle()}
+      </Typography>
+      <Button
+        onClick={handleNavigation}
+        style={{
+          ...button,
+        }}
+      >
+        + create new project
+      </Button>
+      <Select
+        style={{
+          ...select,
+        }}
+        onChange={handleGalleryChange}
+        value={galleryType}
+      >
+        <MenuItem style={{ fontFamily: "cursive" }} value={"my-artwork"}>
+          my artwork
+        </MenuItem>
+        <MenuItem style={{ fontFamily: "cursive" }} value={"public"}>
+          public gallery
+        </MenuItem>
+      </Select>
+      <Routes>
+        <Route
+          path="/public"
+          element={
+            <PublicGallery
+              handleNavigation={handleNavigation}
+              gallery={gallery}
+              dispatch={dispatch}
+              username={user.username}
+            />
+          }
+        ></Route>
+        <Route
+          path="/my-artwork"
+          element={
+            <MyArtwork
+              handleNavigation={handleNavigation}
+              gallery={gallery}
+              dispatch={dispatch}
+              username={user.username}
+              fetchArtwork={fetchArtwork}
+            />
+          }
+        ></Route>
+      </Routes>
+    </div>
   );
 };
 

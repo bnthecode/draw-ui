@@ -14,11 +14,16 @@ import createPageStyles from "./create-page-styles";
 const Create = ({ imageUrl }) => {
   useEffect(() => {
     const { ctx } = getCanvasProps();
-    if (imageUrl) {
-      const img = new Image();
-      img.onload = () => ctx.drawImage(img, 0, 0);
-      img.src = imageUrl;
-    }
+    const fetchDrawing = async () => {
+      const imageId = window.location.href.split("/")[4] || "";
+      if (imageId) {
+        const drawing = await drawingsHttp.getDrawing(imageId);
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0);
+        img.src = drawing.imgUrl;
+      }
+    };
+    fetchDrawing();
   });
 
   const [canvasProperties, setCanvasProperties] = useState({

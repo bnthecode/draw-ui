@@ -1,11 +1,10 @@
 import { useOnDraw } from "../../hooks";
 
 const Canvas = ({ width, height, strokeColor, strokeWidth, brushType }) => {
-  const { setCanvasRef, onCanvasMouseDown } = useOnDraw(onDraw);
-
   const onDraw = (ctx, point, prevPoint) => {
     drawLine(prevPoint, point, ctx, strokeColor, strokeWidth, brushType);
   };
+  const { setCanvasRef, onCanvasMouseDown } = useOnDraw(onDraw);
 
   const drawLine = (start, end, ctx, color, width, lineCap) => {
     start = start ?? end;

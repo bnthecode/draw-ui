@@ -1,7 +1,7 @@
 export default {
   description: {
     fontFamily: "cursive",
-    height: 200,
+    height: 120,
     overflowY: "scroll",
   },
   handle: {

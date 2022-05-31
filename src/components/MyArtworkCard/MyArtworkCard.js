@@ -5,15 +5,15 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import galleryCardStyles from "./gallery-card-styles";
+import myArtworkStyles from "./my-artwork-card-styles";
 
-const GalleryCard = ({ image, dispatch }) => {
+const MyArtworkCard = ({ image, dispatch }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     dispatch({ type: "select-drawing", payload: image });
     navigate(`/create/${image._id}`);
   };
-  const { description, handle } = galleryCardStyles;
+  const { description, handle } = myArtworkStyles;
   return (
     <Card elevation={12} onClick={handleClick}>
       <CardActionArea>
@@ -47,13 +47,11 @@ const GalleryCard = ({ image, dispatch }) => {
               ...handle,
             }}
             color="text.secondary"
-          >
-            @{image.creator || ""}
-          </Typography>
+          ></Typography>
         </CardContent>
       </CardActionArea>
     </Card>
   );
 };
 
-export default GalleryCard;
+export default MyArtworkCard;
