@@ -10,14 +10,16 @@ import drawingsHttp from "../../http/drawings-http";
 import { getCanvasProps } from "../../utilities";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import createPageStyles from "./create-page-styles";
+import moment from "moment";
 
-const Create = ({ imageUrl }) => {
+const Create = () => {
   useEffect(() => {
     const { ctx } = getCanvasProps();
     const fetchDrawing = async () => {
       const imageId = window.location.href.split("/")[4] || "";
       if (imageId) {
         const drawing = await drawingsHttp.getDrawing(imageId);
+        setImage(drawing);
         const img = new Image();
         img.onload = () => ctx.drawImage(img, 0, 0);
         img.src = drawing.imgUrl;
@@ -35,6 +37,8 @@ const Create = ({ imageUrl }) => {
   });
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [toolbarOpen, setToolbarOpen] = useState(false);
+  const [image, setImage] = useState({});
+  const [elapsedTime, setElapsedTime] = useState(moment());
 
   const navigate = useNavigate();
 
@@ -49,6 +53,7 @@ const Create = ({ imageUrl }) => {
   };
 
   const saveChanges = async ({ title, description, isPublic }) => {
+    // we are currently creating a new image every time, so we dont need to add elapsed time.
     const canvas = document.getElementById("drawing-canvas");
     var imgUrl = canvas.toDataURL();
     const body = {
@@ -56,6 +61,7 @@ const Create = ({ imageUrl }) => {
       description,
       imgUrl,
       isPublic,
+      elapsedTime: elapsedTime.diff(moment(), "minutes"),
     };
     await drawingsHttp.createDrawing(body);
     setNotificationOpen(false);
@@ -64,6 +70,7 @@ const Create = ({ imageUrl }) => {
   const clearCanvas = () => {
     const { canvas, ctx } = getCanvasProps();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setElapsedTime(0);
   };
   const { strokeWidth, strokeColor, brushType } = canvasProperties;
   const { container, backButton, button, buttonIcon } = createPageStyles;
@@ -88,7 +95,7 @@ const Create = ({ imageUrl }) => {
         strokeColor={strokeColor}
         brushType={brushType}
         strokeWidth={strokeWidth}
-        imageUrl={imageUrl}
+        imageUrl={image.imgUrl}
       />
       <Button
         id="save-drawing-button"
